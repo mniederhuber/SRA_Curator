@@ -1,0 +1,4 @@
+interface:
+  display_name: "SRA Curator"
+  short_description: "Curate SRA datasets with ontology-normalized metadata maps."
+  default_prompt: "Use sra-curator to search, filter, ingest, extract candidates, normalize ontology terms, and export curated SRA dataset maps."

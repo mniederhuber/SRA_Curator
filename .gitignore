@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.uv/
+.uv-cache/
+uv-cache/
+.pytest_cache/
+
+# SRA data and project databases
+sra-data/
+*.db
+*.sqlite
+*.sqlite3
+exports/
+
+# Environment
+.env
+.env.*
+
+# Claude Code — MCP config is user-specific
+.mcp.json
+.claude/
+
+# OS
+.DS_Store
