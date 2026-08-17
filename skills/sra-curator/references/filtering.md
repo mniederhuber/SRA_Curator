@@ -20,6 +20,19 @@ When a parameter list is populated, a run should match that category before it i
 inserted. Keep the BioProject inventory in `projects`; constrain the working
 run-level dataset in `runs` and `sample_attributes`.
 
+Run-level assay exclusion should be encoded in the project `scope.md`, not
+handled as an ad hoc deletion after ingest. Use these scope keys:
+
+- `library_strategy_keep`: SRA `LibraryStrategy` values to insert.
+- `library_strategy_exclude`: SRA `LibraryStrategy` values to reject even when
+  titles or project-level text mention an in-scope assay.
+- `other_strategy_policy`: one of `require_assay_evidence`, `exclude`, or
+  `allow`.
+
+`other_strategy_policy: require_assay_evidence` means `LibraryStrategy=OTHER`
+is inserted only when run-level title, protocol text, or sample attributes
+explicitly support an in-scope assay. Shared BioProject titles are not enough.
+
 ## Repair Procedure For Already-Ingested DBs
 
 1. Preview the current run universe.
@@ -89,6 +102,25 @@ Exclude these by default before entity extraction:
 Handle `OTHER` cautiously. Keep `OTHER` only when titles, protocol text, or
 sample attributes explicitly support a chromatin accessibility assay. Otherwise
 exclude it from the entity-extraction dataset.
+
+Example scope rules:
+
+```text
+library_strategy_keep:
+- ATAC-seq
+- FAIRE-seq
+- DNase-Hypersensitivity
+
+library_strategy_exclude:
+- RNA-Seq
+- ChIP-Seq
+- Bisulfite-Seq
+- Hi-C
+- RIP-Seq
+- miRNA-Seq
+
+other_strategy_policy: require_assay_evidence
+```
 
 ## Organism Filtering
 
